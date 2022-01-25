@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skeliya", "Skeliya\Skeliya.csproj", "{8A8DCE7A-9633-412E-BB1B-0A3E50D625F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skeliya", "Skeliya\Skeliya.csproj", "{8A8DCE7A-9633-412E-BB1B-0A3E50D625F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skeliya.Core", "Skeliya.Core\Skeliya.Core.csproj", "{A10723E0-21B6-4EAB-ABF5-F3AE946C4A57}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skeliya.Core", "Skeliya.Core\Skeliya.Core.csproj", "{A10723E0-21B6-4EAB-ABF5-F3AE946C4A57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skeliya.Sdk", "Skeliya.Sdk\Skeliya.Sdk.csproj", "{C55CEC3E-029C-4132-B189-CF750D1BE2C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{A10723E0-21B6-4EAB-ABF5-F3AE946C4A57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A10723E0-21B6-4EAB-ABF5-F3AE946C4A57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A10723E0-21B6-4EAB-ABF5-F3AE946C4A57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C55CEC3E-029C-4132-B189-CF750D1BE2C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C55CEC3E-029C-4132-B189-CF750D1BE2C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C55CEC3E-029C-4132-B189-CF750D1BE2C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C55CEC3E-029C-4132-B189-CF750D1BE2C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

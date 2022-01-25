@@ -1,4 +1,4 @@
-﻿namespace SVM
+﻿namespace Skeliya
 {
     /// <summary>
     /// 主运行类
