@@ -9,4 +9,9 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Skeliya.Core\Skeliya.Core.csproj" />
+    <ProjectReference Include="..\Skeliya.Sdk\Skeliya.Sdk.csproj" />
+  </ItemGroup>
+
 </Project>

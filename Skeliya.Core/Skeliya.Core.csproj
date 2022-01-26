@@ -8,4 +8,17 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Runtime\JIT\" />
+    <Folder Include="Runtime\Service\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LiteDB" Version="5.0.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Skeliya.Sdk\Skeliya.Sdk.csproj" />
+  </ItemGroup>
+
 </Project>
