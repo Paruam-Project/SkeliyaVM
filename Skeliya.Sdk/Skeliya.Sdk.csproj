@@ -12,8 +12,6 @@
 
   <ItemGroup>
     <Folder Include="Build\Linker\" />
-    <Folder Include="Extensions\TypeConverter\" />
-    <Folder Include="Build\Compiler\" />
   </ItemGroup>
 
 </Project>

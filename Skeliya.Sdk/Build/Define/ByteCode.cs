@@ -1,27 +1,41 @@
-﻿namespace Skeliya.Sdk.Build.Define
+﻿using Skeliya.Sdk.Extensions.TypeConverter;
+namespace Skeliya.Sdk.Build.Define
 {
     public class ByteCode
     {
+        public static SkeliyaAssembly CreateAssembly(SkeliyaOpCode opCode,List<object> paramArray)
+        {
+            return new SkeliyaAssembly() { SasmOpCode= opCode, Parameters =paramArray.ToArray() };
+        }
+        public static SkeliyaAssembly CreateAssembly(byte[] skeliyaAssembly)
+        {
+            return BaseType<SkeliyaAssembly>.Deserialize(skeliyaAssembly);
+        }
+        public static byte[] CreateByte(SkeliyaOpCode opCode, List<object> paramArray)
+        {
+            return BaseType<SkeliyaAssembly>.Serialize(CreateAssembly(opCode, paramArray));
+        }
+        public static byte[] CreateByte(SkeliyaAssembly skeliyaAssembly)
+        {
+            return BaseType<SkeliyaAssembly>.Serialize(skeliyaAssembly);
+        }
         /// <summary>
         /// Sasm汇编代码单元
         /// </summary>
-        public class SkeliyaAssembly
+        public struct SkeliyaAssembly
         {
             public SkeliyaOpCode SasmOpCode { get; set; }
-            public List<object>? Params { get; set; }
-            public SkeliyaAssembly(SkeliyaOpCode opCode,List<object> list)
-            {
-                SasmOpCode= opCode;
-                Params= list;
-            }
+            public object[] Parameters { get; set; }    
+
+            //LiteDB传入类中不得有构造参数
         }
+        /// <summary>
+        /// 在此基础上做了些修改：https://www.cnblogs.com/john-d/archive/2009/12/05/1617710.html
+        /// 同时也参考了Smali汇编代码，原理部分源自Jvm
+        /// </summary> 
         public enum SkeliyaOpCode: short
         {
-			/// <summary>
-			/// 在此基础上做了些修改：https://www.cnblogs.com/john-d/archive/2009/12/05/1617710.html
-            /// 同时也参考了Smali汇编代码，原理部分源自Jvm
-			/// </summary> 
-             
+			             
             //字节码流标志
             IL_START,
             IL_END,
