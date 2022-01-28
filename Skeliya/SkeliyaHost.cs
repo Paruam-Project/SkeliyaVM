@@ -1,6 +1,6 @@
-﻿using Skeliya.Sdk.Build.Define;
-using Skeliya.Sdk.Extensions.LiteDBWrapper;
-using Skeliya.Sdk.Build.Compiler;
+﻿using Skeliya.Sdk.Build.Compiler;
+using Skeliya.Sdk.Build.Define;
+
 namespace Skeliya
 {
     /// <summary>
@@ -12,20 +12,21 @@ namespace Skeliya
         /// 应用程序入口点
         /// </summary>
         public static void Main()
-        {
-            File.WriteAllBytes("TestDS.bin", CompileAssembly.CreateSkeliyaAssembly(new CompileAssembly.Assemblys() { 
-                skeliyaAssemblies={
-                    new ByteCode.SkeliyaAssembly{
-                        SasmOpCode=ByteCode.SkeliyaOpCode.IL_START, Parameters=new List<object>() { "123456xxx","",1588 }.ToArray()
-                    },
-                    new ByteCode.SkeliyaAssembly{
-                        SasmOpCode=ByteCode.SkeliyaOpCode.IL_START, Parameters=new List<object>() { "45688444","x",1688 }.ToArray()
-                    }
-
-
-                } } ));
-            var file = File.ReadAllBytes("TestDS.bin");
-            Console.WriteLine(CompileAssembly.CreateSkeliyaAssembly(file).skeliyaAssemblies.Count.ToString()); 
+        {   /*
+            var sasm = new List<ByteCode.SkeliyaAssembly>();
+            for (int i = 0; i <= 50000; i++)
+            {
+                //GC.Collect();
+                sasm.Add(new ByteCode.SkeliyaAssembly
+                {
+                    SasmOpCode = ByteCode.SkeliyaOpCode.IL_START,
+                    Parameters = new List<byte[]>() { new byte[] { 0 } }
+                });
+            }
+             
+             CompileAssembly.CreateSkeliyaAssembly(sasm, "TestDS.bin");
+            */ 
+            Console.WriteLine(CompileAssembly.CreateSkeliyaAssembly("TestDS.bin")[0].SasmOpCode);
         }
     }
 }

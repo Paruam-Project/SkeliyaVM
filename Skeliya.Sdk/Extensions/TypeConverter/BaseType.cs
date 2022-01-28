@@ -1,21 +1,42 @@
-﻿using System.Text.Json;
+﻿
+using Skeliya.Sdk.Build.Compiler;
+using static Skeliya.Sdk.Build.Define.ByteCode;
 
 namespace Skeliya.Sdk.Extensions.TypeConverter
-{
-    public class BaseType<T>
+{ 
+    public class BaseType
     {
-        public static readonly JsonSerializerOptions jsonSerializerOptions = new() { PropertyNameCaseInsensitive = true};
-        public static byte[] Serialize(T ClassValue)
+        public static byte[] Serialize(SkeliyaAssembly ClassValue)
         {
-            return JsonSerializer.SerializeToUtf8Bytes(ClassValue, jsonSerializerOptions);
+            ByteCollection byteCollection = new();
+            byteCollection.Write(((short)ClassValue.SasmOpCode).GetBytes());
+            byteCollection.Write(((short)ClassValue.Parameters.Count).GetBytes());
+            foreach (byte[] param in ClassValue.Parameters)
+            {
+                byteCollection.Write(param.Length.GetBytes());
+            }
+            foreach (byte[] param in ClassValue.Parameters)
+            {
+                byteCollection.Write(param);
+            }
+            return CompileAssembly.CompressBytes(byteCollection.GetBytes());
         }
-        public static T Deserialize(byte[] ClassValue)
+        public static SkeliyaAssembly Deserialize(byte[] ClassValue)
         {
-           Utf8JsonReader utf8Reader = new(ClassValue);
-#pragma warning disable CS8603 // 可能返回 null 引用。
-            return JsonSerializer.Deserialize<T>(ref utf8Reader, jsonSerializerOptions);
-#pragma warning restore CS8603 
+            SkeliyaAssembly skeliyaAssembly = new();
+            ByteCollection byteCollection = new(CompileAssembly.DecompressBytes(ClassValue));
+            skeliyaAssembly.SasmOpCode = (SkeliyaOpCode)byteCollection.Read(sizeof(short)).ToShort();
+            short paramsLen = byteCollection.Read(sizeof(short)).ToShort();
+            List<int> paramsLenList=new();
+            for (short i = 1;i <= paramsLen; i++)
+            {
+                paramsLenList.Add(byteCollection.Read(sizeof(int)).ToInteger());
+            }
+            for (short i = 1; i <= paramsLen; i++)
+            {
+                skeliyaAssembly.Parameters.Add(byteCollection.Read(sizeof(int)));
+            }
+            return skeliyaAssembly;
         }
-         
-    }
+    } 
 }

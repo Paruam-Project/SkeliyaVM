@@ -15,10 +15,16 @@ namespace Skeliya.Sdk.Extensions.LiteDBWrapper
             liteCollection.Insert(entries);//重复的项不会被插入
             DataBase.Commit();
         }
+        public void WriteFile(T id, string filename)
+        {
+            ILiteStorage<T> liteCollection = DataBase.GetStorage<T>();
+            liteCollection.Upload(id, filename);//重复的项不会被插入
+            DataBase.Commit();
+        }
         public void WriteFile(T id, string filename, MemoryStream stream)
         {
             ILiteStorage<T> liteCollection = DataBase.GetStorage<T>();
-            liteCollection.Upload(id, filename, stream);//重复的项不会被插入
+            liteCollection.Upload(id, filename, stream); 
             DataBase.Commit();
         }
         public List<T> Read()
@@ -37,6 +43,11 @@ namespace Skeliya.Sdk.Extensions.LiteDBWrapper
             ILiteStorage<T> liteCollection = DataBase.GetStorage<T>();
             liteCollection.Download(id, memoryStream);
             return memoryStream;
+        }
+        public void ReadFile(T id,string outputPath,bool overwrite=true)
+        {
+            ILiteStorage<T> liteCollection = DataBase.GetStorage<T>();
+            liteCollection.Download(id, outputPath, overwrite);
         }
         public static LiteDatabase CreateOrOpenDataBase(string dbPath)
         {
