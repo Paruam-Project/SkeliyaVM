@@ -15,7 +15,7 @@ namespace Skeliya
         /// </summary>
         public static void Main()
         {
-            var db = FileController.CreateOrOpenDataBase("TestDS.db");
+            
 
             ////*
             var sasm = new List<ByteCode.SkeliyaAssembly>();
@@ -29,9 +29,9 @@ namespace Skeliya
                 });
             }
              
-             CompileAssembly.CreateSkeliyaAssembly(sasm, db);
+             CompileAssembly.CreateSkeliyaAssembly(sasm, "TestDS.db");
             //*/ 
-            Console.WriteLine(CompileAssembly.CreateSkeliyaAssembly(db)[5].Parameters[0].ToStrings());
+            Console.WriteLine(CompileAssembly.CreateSkeliyaAssembly("TestDS.db")[5].Parameters[0].ToStrings());
         }
     }
 }
