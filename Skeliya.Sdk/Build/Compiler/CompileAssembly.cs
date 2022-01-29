@@ -32,6 +32,7 @@ namespace Skeliya.Sdk.Build.Compiler
             return skeliyaAssemblyResult;
         }
 
+
         //压缩字节
         //1.创建压缩的数据流 
         //2.设定compressStream为存放被压缩的文件流,并设定为压缩模式
