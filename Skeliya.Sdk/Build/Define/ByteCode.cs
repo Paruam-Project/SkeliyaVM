@@ -3,29 +3,13 @@ namespace Skeliya.Sdk.Build.Define
 {
     public class ByteCode
     {
-        public static SkeliyaAssembly CreateAssembly(SkeliyaOpCode opCode, List<byte[]> paramArray)
-        {
-            return new SkeliyaAssembly() { SasmOpCode= opCode, Parameters =paramArray };
-        }
-        public static SkeliyaAssembly CreateAssembly(byte[] skeliyaAssembly)
-        {
-            return BaseType.Deserialize(skeliyaAssembly);
-        }
-        public static byte[] CreateByte(SkeliyaOpCode opCode, List<byte[]> paramArray)
-        {
-            return BaseType.Serialize(CreateAssembly(opCode, paramArray));
-        }
-        public static byte[] CreateByte(SkeliyaAssembly skeliyaAssembly)
-        {
-            return BaseType.Serialize(skeliyaAssembly);
-        }
         /// <summary>
         /// Sasm汇编代码单元
         /// </summary>
         public class SkeliyaAssembly
         {
             public SkeliyaOpCode SasmOpCode { get; set; }
-            public List<byte[]> Parameters { get; set; } = new();
+            public List<object> Parameters { get; set; } = new();
 
             //LiteDB传入类中不得有构造参数
         }

@@ -1,4 +1,5 @@
 ﻿using Skeliya.Sdk.Build.Define;
+using Skeliya.Sdk.Extensions.LiteDBWrapper;
 using Skeliya.Sdk.Extensions.TypeConverter;
 using System.IO.Compression;
 using static Skeliya.Sdk.Build.Define.ByteCode;
@@ -7,29 +8,18 @@ namespace Skeliya.Sdk.Build.Compiler
 {
     public class CompileAssembly
     {
-        public static void CreateSkeliyaAssembly(List<SkeliyaAssembly> skeliyaAssemblies,string outputPath)
+        public static void CreateSkeliyaAssembly(SkeliyaAssembly skeliyaAssemblies,LiteDB.LiteDatabase outputDB)
         {
-            FileCollection fileCollection = new(outputPath);
-            fileCollection.Write(skeliyaAssemblies.Count.GetBytes()); //int程序集指令数量
-            foreach (SkeliyaAssembly skeliyaAssembly in skeliyaAssemblies)
-            {
-                fileCollection.Write(BaseType.Serialize(skeliyaAssembly).Length.GetBytes());//int每个程序集指令大小
-                fileCollection.Write(BaseType.Serialize(skeliyaAssembly));
-            }
-
+            var db = new FileController(outputDB);
+            db.Write(skeliyaAssemblies);
+            //db.Close();
         }
-        public static List<SkeliyaAssembly> CreateSkeliyaAssembly(string outputPath)
+        public static SkeliyaAssembly CreateSkeliyaAssembly(long index, LiteDB.LiteDatabase outputDB)
         {
-            FileCollection fileCollection = new(outputPath);
-            List<SkeliyaAssembly> skeliyaAssemblyResult = new();
-            int counts = fileCollection.Read(sizeof(int)).ToInteger();
-            for (int i = 1; i <= counts; i++)
-            {
-                int skeliyaAssemblyCurrentLength = fileCollection.Read(sizeof(int)).ToInteger();
-                byte[] skeliyaAssemblyCurrentBytes= fileCollection.Read(skeliyaAssemblyCurrentLength);
-                skeliyaAssemblyResult.Add(BaseType.Deserialize(skeliyaAssemblyCurrentBytes));
-            }
-            return skeliyaAssemblyResult;
+            var db = new FileController(outputDB);
+            var result = db.Read<SkeliyaAssembly>(index);
+            //db.Close();
+            return result;
         }
 
 

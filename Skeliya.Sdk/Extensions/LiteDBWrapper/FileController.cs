@@ -49,6 +49,10 @@ namespace Skeliya.Sdk.Extensions.LiteDBWrapper
             ILiteStorage<T> liteCollection = DataBase.GetStorage<T>();
             liteCollection.Download(id, outputPath, overwrite);
         }
+        public void Close()
+        {
+            DataBase.Dispose();
+        }
         public static LiteDatabase CreateOrOpenDataBase(string dbPath)
         {
             return new LiteDatabase(dbPath);

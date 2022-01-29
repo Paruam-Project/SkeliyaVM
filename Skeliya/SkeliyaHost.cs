@@ -2,6 +2,7 @@
 using Skeliya.Sdk.Build.Define;
 using Skeliya.Sdk.Extensions.LiteDBWrapper;
 using Skeliya.Sdk.Extensions.TypeConverter;
+using System.Diagnostics;
 
 namespace Skeliya
 {
@@ -15,23 +16,21 @@ namespace Skeliya
         /// </summary>
         public static void Main()
         {
-            
-
-            ////*
-            var sasm = new List<ByteCode.SkeliyaAssembly>();
-            for (int i = 0; i <= 5000; i++)
+            var st = new Stopwatch();
+            st.Start();
+            var db = FileController.CreateOrOpenDataBase("Appx-temp.pkgs");
+            /*
+            for(int x = 1; x <= 100000; x++)
             {
-                //GC.Collect();
-                sasm.Add(new ByteCode.SkeliyaAssembly
-                {
-                    SasmOpCode = ByteCode.SkeliyaOpCode.IL_START,
-                    Parameters = new List<byte[]>() { i.ToString().GetBytes() }
-                });
+                Console.WriteLine(x);
+                CompileAssembly.CreateSkeliyaAssembly(new ByteCode.SkeliyaAssembly() { SasmOpCode = ByteCode.SkeliyaOpCode.IL_START, Parameters = new List<object>() { "wdnmd" + x.ToString() } }, db);
+
             }
-             
-             CompileAssembly.CreateSkeliyaAssembly(sasm, "TestDS.db");
-            //*/ 
-            Console.WriteLine(CompileAssembly.CreateSkeliyaAssembly("TestDS.db")[5].Parameters[0].ToStrings());
+            */
+            st.Stop();
+            Console.WriteLine(st.ElapsedMilliseconds / 1000);
+            Console.WriteLine("----------------------------");
+            Console.WriteLine(CompileAssembly.CreateSkeliyaAssembly(50000,db).SasmOpCode);
         }
     }
 }
