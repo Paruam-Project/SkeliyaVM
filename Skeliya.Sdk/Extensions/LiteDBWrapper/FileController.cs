@@ -9,10 +9,16 @@ namespace Skeliya.Sdk.Extensions.LiteDBWrapper
         {
             DataBase = dbp;
         }
-        public void Write<T>(T entries)
+        public void Write<T>( T entries)
+        {
+            ILiteCollection<T> liteCollection = DataBase.GetCollection<T>();
+            liteCollection.Insert(entries);//重复的项不会被插入
+            DataBase.Commit();
+        }
+        public void Write<T>(BsonValue id,T entries)
         {
             ILiteCollection<T> liteCollection= DataBase.GetCollection<T>();
-            liteCollection.Insert(entries);//重复的项不会被插入
+            liteCollection.Insert(id, entries);//重复的项不会被插入
             DataBase.Commit();
         }
         public void WriteFile<T>(T id, string filename)
@@ -32,10 +38,10 @@ namespace Skeliya.Sdk.Extensions.LiteDBWrapper
             ILiteCollection<T> liteCollection = DataBase.GetCollection<T>();
             return liteCollection.Query().ToList();
         }
-        public T Read<T>(long index)
+        public T Read<T>(BsonValue id)
         {
             ILiteCollection<T> liteCollection = DataBase.GetCollection<T>();
-            return liteCollection.Query().ToArray()[index];
+            return liteCollection.Query().ToArray()[id.AsInt64];
         }
         public MemoryStream ReadFile<T>(T id)
         {

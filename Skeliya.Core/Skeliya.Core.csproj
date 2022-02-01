@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <Folder Include="Runtime\JIT\" />
-    <Folder Include="Runtime\Service\" />
   </ItemGroup>
 
   <ItemGroup>
