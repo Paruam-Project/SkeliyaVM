@@ -1,10 +1,11 @@
-﻿
-
-using System.IO.Compression;
+﻿using System.IO.Compression;
 using System.Text;
 
 namespace Skeliya.Sdk.Extensions.TypeConverter
 {
+    /// <summary>
+    /// 类型转换工具类
+    /// </summary>
     public static class TypeHelper
     {
         public static string ToStrings(this byte[] obj, string encodingStr = "UTF-8")
@@ -111,12 +112,14 @@ namespace Skeliya.Sdk.Extensions.TypeConverter
         {
             return BitConverter.GetBytes(value);
         }
+
         public static byte[] GetBytes(this string value, string encodingStr = "UTF-8")
         {
             return Encoding.GetEncoding(encodingStr).GetBytes(value);
         }
+
         //压缩字节
-        //1.创建压缩的数据流 
+        //1.创建压缩的数据流
         //2.设定compressStream为存放被压缩的文件流,并设定为压缩模式
         //3.将需要压缩的字节写到被压缩的文件流
         public static byte[] CompressBytes(byte[] bytes)
@@ -128,6 +131,7 @@ namespace Skeliya.Sdk.Extensions.TypeConverter
             zipStream.Dispose();
             return compressStream.GetBuffer();
         }
+
         //解压缩字节
         //1.创建被压缩的数据流
         //2.创建zipStream对象，并传入解压的文件流
@@ -145,7 +149,6 @@ namespace Skeliya.Sdk.Extensions.TypeConverter
             zipStream.Dispose();
             compressStream.Dispose();
             return resultStream.GetBuffer();
-
         }
     }
 }

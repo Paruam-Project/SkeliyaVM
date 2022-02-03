@@ -1,10 +1,13 @@
 ﻿namespace Skeliya.Sdk.Extensions.TypeConverter
 {
+    /// <summary>
+    /// 文件收集器
+    /// </summary>
     public class FileCollection
     {
         public FileStream FileStreamProvider { get; }
 
-        public FileCollection(string filePath, FileMode fileMode = FileMode.OpenOrCreate, FileAccess fileAccess = FileAccess.ReadWrite,FileShare fileShare=FileShare.ReadWrite)
+        public FileCollection(string filePath, FileMode fileMode = FileMode.OpenOrCreate, FileAccess fileAccess = FileAccess.ReadWrite, FileShare fileShare = FileShare.ReadWrite)
         {
             FileStreamProvider = new(filePath, fileMode, fileAccess, fileShare);
         }
@@ -21,6 +24,7 @@
             FileStreamProvider.Write(bytes, offest, bytes.Length);
             FileStreamProvider.Flush();
         }
+
         public long GetLength()
         {
             return FileStreamProvider.Length;
