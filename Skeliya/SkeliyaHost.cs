@@ -12,7 +12,14 @@ namespace Skeliya
         /// </summary>
         public static void Main()
         {
-            VMRuntime.SystemCallback("VMServicesDescriptorTable", "PrintL", new string[] { "VMSDT->PrintL SYSCALL OKAY" });
+            //该过程会自动在VMCore内完成，将对应指令解析为VMRuntime
+            var txt = VMRuntime.SystemCallback("VMServicesDescriptorTable", "FileReadAllText", new string[] { "main.bytecode" });
+            //先读取txt
+            if(txt != null)
+            {
+                VMRuntime.SystemCallback("VMServicesDescriptorTable", "PrintL", new string[] { (string)txt });
+            }
+            
         }
     }
 }

@@ -14,5 +14,9 @@
         {
             Console.Write(text);
         }
+        public string FileReadAllText(string path)
+        {
+            return File.ReadAllText(path);
+        }
     }
 }

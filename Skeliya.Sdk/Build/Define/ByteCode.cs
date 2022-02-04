@@ -47,7 +47,7 @@
             IL_IF_EQZ, /* ==0 */
             IL_IF_NEZ, /* !=0 */
 
-            //操作值
+            //操作值（仅限寄存器之间，不得用于赋值操作）
             IL_MOVE_PTR, /* mov-ptr v1,v2 */
 
             IL_MOVE_OBJECT,
